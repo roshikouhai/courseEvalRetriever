@@ -2,11 +2,11 @@ from django.db import models
 
 class Course(models.Model):
 	department = models.CharField(max_length=260)
-	course_name = models.CharField(max_length=260)
+	course_id = models.CharField(max_length=260)
 
 	# Add in date updated. 
 	def __str__(self):
-			return self.department + ' ' + self.course_name
+			return self.department + ' ' + self.course_id
 
 	""" 
 	Add function to other script
@@ -45,19 +45,19 @@ class Course(models.Model):
 
 	"""
 class Teacher(models.Model):
-	course = models.ForeignKey(Course, on_delete = models.CASCADE, verbose_name = "Teacher who taught course")
+	course = models.ForeignKey(Course, on_delete = models.CASCADE, verbose_name = "ID of Course Taught")
 	teacher = models.CharField(max_length=40)
 	standing = models.CharField(max_length=30)
-	quarter = models.CharField(max_length=4)
-	surveyed = models.IntegerField()
-	enrolled = models.IntegerField()
+	quarter = models.CharField(max_length=5)
+	surveyed = models.PositiveSmallIntegerField()
+	enrolled = models.PositiveSmallIntegerField()
 	lecture_form = models.CharField(max_length=30)
 
 	def __str__(self):
 		return self.teacher + ' ' + self.quarter
 		
 class Criteria(models.Model):
-	teacher = models.ForeignKey(Teacher, on_delete = models.CASCADE, verbose_name = "Teacher Evaluations")
+	teacher = models.OneToOneField(Teacher, on_delete = models.CASCADE, verbose_name = "Teacher Evaluations")
 	CRITERIA_CHOICES = (
 		('whole', 'Course as a whole'),
 		('txtbk_oa', 'Textbook Overall'),
@@ -71,13 +71,13 @@ class Criteria(models.Model):
 		('relev_of_hw', 'Relevance and usefulness of homework'),
 	)
 	criteria = models.CharField(max_length = 20, choices = CRITERIA_CHOICES)
-	excellent = models.IntegerField()
-	very_good = models.IntegerField()
-	good = models.IntegerField()
-	fair = models.IntegerField()
-	poor = models.IntegerField()
-	very_poor = models.IntegerField()
+	excellent = models.PositiveSmallIntegerField()
+	very_good = models.PositiveSmallIntegerField()
+	good = models.PositiveSmallIntegerField()
+	fair = models.PositiveSmallIntegerField()
+	poor = models.PositiveSmallIntegerField()
+	very_poor = models.PositiveSmallIntegerField()
 	median = models.DecimalField(max_digits= 3, decimal_places = 2)
 
 	def __str__(self):
-		return self.criteria + ' '+ self.median
+		return self.criteria + ' '+ str(self.median)
