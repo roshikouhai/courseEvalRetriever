@@ -57,7 +57,7 @@ class Teacher(models.Model):
 		return self.teacher + ' ' + self.quarter
 		
 class Criteria(models.Model):
-	teacher = models.OneToOneField(Teacher, on_delete = models.CASCADE, verbose_name = "Teacher Evaluations")
+	teacher = models.ForeignKey(Teacher, on_delete = models.CASCADE, verbose_name = "Teacher Evaluations")
 	CRITERIA_CHOICES = (
 		('whole', 'Course as a whole'),
 		('txtbk_oa', 'Textbook Overall'),
@@ -80,4 +80,4 @@ class Criteria(models.Model):
 	median = models.DecimalField(max_digits= 3, decimal_places = 2)
 
 	def __str__(self):
-		return self.criteria + ' '+ str(self.median)
+		return str(self.criteria) + ' '+ str(self.median)
