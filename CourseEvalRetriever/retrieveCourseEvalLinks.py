@@ -4,7 +4,6 @@
 #TODO: Upload to online database.
 """
 Web Page Scraper for Teacher Evals Page
-github/mikur/mikurio
 Only goes through to find the links. 
 """
 
