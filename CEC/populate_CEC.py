@@ -1,5 +1,8 @@
 import os, argparse
 from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'CEC.settings')
 
@@ -64,17 +67,18 @@ def extract_data(url):
 		f.write(course_name + '\n')
 		f.write(teacher_name + '\n')
 		f.write(course_info + '\n\n')
-def parse_course_name(course):
+
+#def parse_course_name(course):
 
 def parse_teacher_name(teacher):
 	"""
 	returns array where information is stored in the following order
 	teacher name, standing, quarter
 	"""
-	teacher_name = " "." ".join(teacher.split()[0:2])
+	teacher_name = " ".join(teacher.split()[0:2])
 
-	return teacher_name
-def parse_course_info(info):
+	return teacher_name	
+#def parse_course_info(info):
 
 def main():
 	login(get_userpass())
